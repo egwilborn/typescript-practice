@@ -60,9 +60,42 @@ function isSquare(n: number): boolean {
     return false;
   }
 }
-console.log(isSquare(-1));
-console.log(isSquare(0));
-console.log(isSquare(3));
-console.log(isSquare(4));
-console.log(isSquare(25));
-console.log(isSquare(26));
+// console.log(isSquare(-1));
+// console.log(isSquare(0));
+// console.log(isSquare(3));
+// console.log(isSquare(4));
+// console.log(isSquare(25));
+// console.log(isSquare(26));
+
+// Welcome. In this kata, you are asked to square every digit of a number and concatenate them.
+
+// For example, if we run 9119 through the function, 811181 will come out,
+// because 92 is 81 and 12 is 1. (81-1-1-81)
+
+// Example #2: An input of 765 will/should return 493625 because
+// 72 is 49, 62 is 36, and 52 is 25. (49-36-25)
+
+// Note: The function accepts an integer and returns an integer.
+
+// Happy Coding!
+
+export class Kata {
+  static squareDigits(num: number): number {
+    // swtich input to string
+    const numStr = num.toString();
+    //define array for result
+    const result: string[] = [];
+    // loop over str
+    for (let char of numStr) {
+      // square each number and push to new array
+      let charNum = parseInt(char);
+      result.push((charNum * charNum).toString());
+    }
+    // join array and convert to num
+    const resultStr = result.join("");
+    // may the code be with you
+    return parseInt(resultStr);
+  }
+}
+Kata.squareDigits(9119); // 811181
+Kata.squareDigits(765); // 493625
