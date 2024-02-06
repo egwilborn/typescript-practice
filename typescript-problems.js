@@ -1,4 +1,7 @@
+"use strict";
 // Your team is writing a fancy new text editor and you've been tasked with implementing the line numbering.
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Kata = void 0;
 // Write a function which takes a list of strings and returns each line prepended by the correct
 // number.
 // The numbering starts at 1. The format is n: string. Notice the colon and space in between.
@@ -48,9 +51,42 @@ function isSquare(n) {
         return false;
     }
 }
-console.log(isSquare(-1));
-console.log(isSquare(0));
-console.log(isSquare(3));
-console.log(isSquare(4));
-console.log(isSquare(25));
-console.log(isSquare(26));
+// console.log(isSquare(-1));
+// console.log(isSquare(0));
+// console.log(isSquare(3));
+// console.log(isSquare(4));
+// console.log(isSquare(25));
+// console.log(isSquare(26));
+// Welcome. In this kata, you are asked to square every digit of a number and concatenate them.
+// For example, if we run 9119 through the function, 811181 will come out,
+// because 92 is 81 and 12 is 1. (81-1-1-81)
+// Example #2: An input of 765 will/should return 493625 because
+// 72 is 49, 62 is 36, and 52 is 25. (49-36-25)
+// Note: The function accepts an integer and returns an integer.
+// Happy Coding!
+var Kata = /** @class */ (function () {
+    function Kata() {
+    }
+    Kata.squareDigits = function (num) {
+        // swtich input to string
+        var numStr = num.toString();
+        //define array for result
+        var result = [];
+        // loop over str
+        for (var _i = 0, numStr_1 = numStr; _i < numStr_1.length; _i++) {
+            var char = numStr_1[_i];
+            // square each number and push to new array
+            var charNum = parseInt(char);
+            result.push((charNum * charNum).toString());
+        }
+        // join array and convert to num
+        var resultStr = result.join("");
+        // may the code be with you
+        console.log(parseInt(resultStr));
+        return 0;
+    };
+    return Kata;
+}());
+exports.Kata = Kata;
+Kata.squareDigits(9119); // 811181
+Kata.squareDigits(765); // 493625
