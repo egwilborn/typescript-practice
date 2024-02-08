@@ -97,5 +97,35 @@ export class Kata {
     return parseInt(resultStr);
   }
 }
-Kata.squareDigits(9119); // 811181
-Kata.squareDigits(765); // 493625
+// Kata.squareDigits(9119); // 811181
+// Kata.squareDigits(765); // 493625
+
+// Write a function that takes in a string of one or more words, and returns the same string,
+// but with all words that have five or more letters reversed (Just like the name of this Kata).
+// Strings passed in will consist of only letters and spaces. Spaces will be included only when more than one
+// word is present.
+
+// Examples:
+function spinWords(words: string): string {
+  //first split string at each space
+  const splitWords = words.split(" ");
+  // make results array
+  const results: string[] = [];
+  // loop over each word
+  splitWords.forEach((word) => {
+    if (word.length >= 5) {
+      // if word is bigger than 5 letters, then reverse it
+      const reverseWord = word.split("").reverse().join("");
+      results.push(reverseWord);
+    } else {
+      //push into new array
+      results.push(word);
+    }
+  });
+  // return results array joined
+  return results.join(" ");
+}
+
+spinWords("Hey fellow warriors"); //  --> "Hey wollef sroirraw"
+spinWords("This is a test"); //        --> "This is a test"
+spinWords("This is another test"); // --> "This is rehtona test"
