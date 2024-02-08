@@ -82,11 +82,39 @@ var Kata = /** @class */ (function () {
         // join array and convert to num
         var resultStr = result.join("");
         // may the code be with you
-        console.log(parseInt(resultStr));
-        return 0;
+        return parseInt(resultStr);
     };
     return Kata;
 }());
 exports.Kata = Kata;
-Kata.squareDigits(9119); // 811181
-Kata.squareDigits(765); // 493625
+// Kata.squareDigits(9119); // 811181
+// Kata.squareDigits(765); // 493625
+// Write a function that takes in a string of one or more words, and returns the same string,
+// but with all words that have five or more letters reversed (Just like the name of this Kata).
+// Strings passed in will consist of only letters and spaces. Spaces will be included only when more than one
+// word is present.
+// Examples:
+function spinWords(words) {
+    //first split string at each space
+    var splitWords = words.split(" ");
+    // make results array
+    var results = [];
+    // loop over each word
+    splitWords.forEach(function (word) {
+        if (word.length >= 5) {
+            // if word is bigger than 5 letters, then reverse it
+            var reverseWord = word.split("").reverse().join("");
+            results.push(reverseWord);
+        }
+        else {
+            //push into new array
+            results.push(word);
+        }
+    });
+    // return results array joined
+    console.log(results.join(" "));
+    return "string";
+}
+spinWords("Hey fellow warriors"); //  --> "Hey wollef sroirraw"
+spinWords("This is a test"); //        --> "This is a test"
+spinWords("This is another test"); // --> "This is rehtona test"
