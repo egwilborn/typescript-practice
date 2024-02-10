@@ -179,3 +179,16 @@ function solution(str: string, ending: string): boolean {
 
 // solution("abc", "bc"); // returns true
 // solution("abc", "d"); // returns false
+
+//alternatively -- using endsWith()
+// function solution2(str: string, ending: string): boolean {
+//   if (str.endsWith(ending)) {
+//     console.log(true);
+//     return true;
+//   } else {
+//     console.log(false);
+//     return false;
+//   }
+// }
+// solution2("abc", "bc"); // returns true
+// solution2("abc", "d"); // returns false
