@@ -154,6 +154,28 @@ function order(words: string): string {
 }
 
 // Examples
-order("is2 Thi1s T4est 3a"); //-->  "Thi1s is2 3a T4est"
-order("4of Fo1r pe6ople g3ood th5e the2"); //  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
-order(""); //  -->  ""
+// order("is2 Thi1s T4est 3a"); //-->  "Thi1s is2 3a T4est"
+// order("4of Fo1r pe6ople g3ood th5e the2"); //  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
+// order(""); //  -->  ""
+
+// Complete the solution so that it returns true if the first argument(string) passed in
+// ends with the 2nd argument (also a string).
+
+// Examples:
+
+function solution(str: string, ending: string): boolean {
+  // figure out the length of the ending string
+  const count = ending.length;
+  // cut everything until that last bit
+  const strArray = str.split("");
+  strArray.splice(0, str.length - count);
+  // check to see if it's the same as the ending
+  if (strArray.join("") === ending) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// solution("abc", "bc"); // returns true
+// solution("abc", "d"); // returns false
