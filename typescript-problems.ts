@@ -192,3 +192,52 @@ function solution(str: string, ending: string): boolean {
 // }
 // solution2("abc", "bc"); // returns true
 // solution2("abc", "d"); // returns false
+
+// Sum of Pairs
+// Given a list of integers and a single sum value, return the first two values
+// (parse from the left please) in order of appearance that add up to form the sum.
+
+// If there are two or more pairs with the required sum, the pair whose second element
+// has the smallest index is the solution.
+function sumPairs(ints: number[], s: number): [number, number] | void {
+  //---- Pseudocode first -----//
+  //sort the ints into a new array -- merge sort --- make a helper function
+  // use multiple pointers method to determine ALL possible pairs that add up to s
+  //start by adding the first and last numbers, then move either up or down depending on above or below target
+  // when you find a pair, store both numbers and their indexes in ints into a new 4-item array -- make a helper function
+  // once you have looped through sorted array and have all possible combos, loop through the results array or arrays
+  // figure out which pair whose second element has the smallest index in the ints array
+  // return that pair
+
+  // solution seems convoluted
+
+  return undefined; // your code here...1
+}
+sumPairs([11, 3, 7, 5], 10);
+// #          ^--^      3 + 7 = 10
+// == [3, 7]
+
+sumPairs([4, 3, 2, 3, 4], 6);
+// #      ^-----^         4 + 2 = 6, indices: 0, 2 *
+// #         ^-----^      3 + 3 = 6, indices: 1, 3
+// #             ^-----^   2 + 4 = 6, indices: 2, 4
+// #  * the correct answer is the pair whose second value has the smallest index
+// == [4, 2]
+
+sumPairs([0, 0, -2, 3], 2);
+// #  there are no pairs of values that can be added to produce 2.
+// == None/nil/undefined (Based on the language)
+
+sumPairs([10, 5, 2, 3, 7, 5], 10);
+//------Testing pseudocode-----//
+// sorted [2,3,5,5,7,10]
+// first - 2, 10 = 12 j--
+// second - 2, 7 = 9 i++
+// third - 3, 7 = 10 ** save ** i++
+// fourth - 5, 7 = 12 j--
+// fifth -- 5,5 = 12 ** save**  i++ ___ i=j___ loop stops
+// #  5 + 5 = 10, indices: 1, 5
+// #  3 + 7 = 10, indices: 3, 4 *
+// #  * the correct answer is the pair whose second value has the smallest index
+// == [3, 7]
+// Negative numbers and duplicate numbers can and will appear.
