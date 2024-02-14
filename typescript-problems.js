@@ -161,15 +161,125 @@ function solution(str, ending) {
 // solution("abc", "bc"); // returns true
 // solution("abc", "d"); // returns false
 //alternatively -- using endsWith()
-function solution2(str, ending) {
-    if (str.endsWith(ending)) {
-        console.log(true);
-        return true;
+// function solution2(str: string, ending: string): boolean {
+//   if (str.endsWith(ending)) {
+//     console.log(true);
+//     return true;
+//   } else {
+//     console.log(false);
+//     return false;
+//   }
+// }
+// solution2("abc", "bc"); // returns true
+// solution2("abc", "d"); // returns false
+// Sum of Pairs
+// Given a list of integers and a single sum value, return the first two values
+// (parse from the left please) in order of appearance that add up to form the sum.
+// If there are two or more pairs with the required sum, the pair whose second element
+// has the smallest index is the solution.
+function sumPairs(ints, s) {
+    //---- Pseudocode first -----//
+    //sort the ints into a new array -- merge sort --- make helper functions
+    //first make a function to merge sorted arrays
+    function mergeArr(arr1, arr2) {
+        var results = [];
+        var i = 0;
+        var j = 0;
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] < arr2[j]) {
+                results.push(arr1[i]);
+                i++;
+            }
+            else {
+                results.push(arr2[j]);
+                j++;
+            }
+        }
+        while (i < arr1.length) {
+            results.push(arr1[i]);
+            i++;
+        }
+        while (j < arr2.length) {
+            results.push(arr2[j]);
+            j++;
+        }
+        return results;
     }
-    else {
-        console.log(false);
-        return false;
+    // then write the merge sort function using the above helper function
+    function mergeSort(arr) {
+        if (arr.length <= 1)
+            return arr;
+        var mid = Math.floor(arr.length / 2);
+        var left = mergeSort(arr.slice(0, mid));
+        var right = mergeSort(arr.slice(mid));
+        return mergeArr(left, right); // note: this line only works with the course version of merge not yours
     }
+    var sortedInts = mergeSort(ints);
+    // use multiple pointers method to determine ALL possible pairs that add up to s
+    //Define results array to store all answers
+    var results = [];
+    // make a storing function to place all possible pairs in an array
+    function storePair(x, y) {
+        var iIndex = ints.indexOf(sortedInts[x]);
+        var jIndex = ints.indexOf(sortedInts[y]);
+        if (iIndex > jIndex) {
+            results.push([ints[jIndex], ints[iIndex], jIndex, iIndex]);
+        }
+        else if (jIndex > iIndex) {
+            results.push([ints[iIndex], ints[jIndex], iIndex, jIndex]);
+        }
+        else {
+            // problem is i=j then you will be in a case where iIndex=jINdex
+        }
+    }
+    // define pointers
+    var i = 0;
+    var j = sortedInts.length - 1;
+    // write loop -- while loop
+    while (j > i) {
+        //start by adding the first and last numbers, then move either up or down depending on above or below target
+        var sum = sortedInts[i] + sortedInts[j];
+        console.log(sortedInts[i], sortedInts[j], sum);
+        if (sum > s) {
+            j--;
+        }
+        else if (sum < s) {
+            i++;
+        }
+        else if (sum === s) {
+            // when you find a pair, store both numbers and their indexes in ints into a new 4-item array -- make a helper function
+            storePair(i, j);
+        }
+    }
+    console.log(results);
+    // once you have looped through sorted array and have all possible combos, loop through the results array or arrays
+    // figure out which pair whose second element has the smallest index in the ints array
+    // return that pair
+    return undefined; // your code here...1
 }
-solution2("abc", "bc"); // returns true
-solution2("abc", "d"); // returns false
+sumPairs([11, 3, 7, 5], 10);
+// #          ^--^      3 + 7 = 10
+// == [3, 7]
+sumPairs([4, 3, 2, 3, 4], 6);
+[2, 3, 3, 4, 4];
+// #      ^-----^         4 + 2 = 6, indices: 0, 2 *
+// #         ^-----^      3 + 3 = 6, indices: 1, 3
+// #             ^-----^   2 + 4 = 6, indices: 2, 4
+// #  * the correct answer is the pair whose second value has the smallest index
+// == [4, 2]
+sumPairs([0, 0, -2, 3], 2);
+// #  there are no pairs of values that can be added to produce 2.
+// == None/nil/undefined (Based on the language)
+sumPairs([10, 5, 2, 3, 7, 5], 10);
+//------Testing pseudocode-----//
+// sorted [2,3,5,5,7,10]
+// first - 2, 10 = 12 j--
+// second - 2, 7 = 9 i++
+// third - 3, 7 = 10 ** save ** i++
+// fourth - 5, 7 = 12 j--
+// fifth -- 5,5 = 10 ** save**  i++ ___ i=j___ loop stops
+// #  5 + 5 = 10, indices: 1, 5
+// #  3 + 7 = 10, indices: 3, 4 *
+// #  * the correct answer is the pair whose second value has the smallest index
+// == [3, 7]
+// Negative numbers and duplicate numbers can and will appear.

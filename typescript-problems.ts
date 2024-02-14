@@ -201,15 +201,76 @@ function solution(str: string, ending: string): boolean {
 // has the smallest index is the solution.
 function sumPairs(ints: number[], s: number): [number, number] | void {
   //---- Pseudocode first -----//
-  //sort the ints into a new array -- merge sort --- make a helper function
+  //sort the ints into a new array -- merge sort --- make helper functions
+  //first make a function to merge sorted arrays
+  function mergeArr(arr1: number[], arr2: number[]): number[] {
+    let results: number[] = [];
+    let i = 0;
+    let j = 0;
+    while (i < arr1.length && j < arr2.length) {
+      if (arr1[i] < arr2[j]) {
+        results.push(arr1[i]);
+        i++;
+      } else {
+        results.push(arr2[j]);
+        j++;
+      }
+    }
+    while (i < arr1.length) {
+      results.push(arr1[i]);
+      i++;
+    }
+    while (j < arr2.length) {
+      results.push(arr2[j]);
+      j++;
+    }
+    return results;
+  }
+  // then write the merge sort function using the above helper function
+  function mergeSort(arr: number[]): any {
+    if (arr.length <= 1) return arr;
+    let mid = Math.floor(arr.length / 2);
+    let left = mergeSort(arr.slice(0, mid));
+    let right = mergeSort(arr.slice(mid));
+    return mergeArr(left, right); // note: this line only works with the course version of merge not yours
+  }
+  const sortedInts = mergeSort(ints);
   // use multiple pointers method to determine ALL possible pairs that add up to s
-  //start by adding the first and last numbers, then move either up or down depending on above or below target
-  // when you find a pair, store both numbers and their indexes in ints into a new 4-item array -- make a helper function
+  //Define results array to store all answers
+  const results: any[] = [];
+  // make a storing function to place all possible pairs in an array
+  function storePair(x: number, y: number) {
+    const iIndex = ints.indexOf(sortedInts[x]);
+    const jIndex = ints.indexOf(sortedInts[y]);
+    if (iIndex > jIndex) {
+      results.push([ints[jIndex], ints[iIndex], jIndex, iIndex]);
+    } else if (jIndex > iIndex) {
+      results.push([ints[iIndex], ints[jIndex], iIndex, jIndex]);
+    } else {
+      // problem is i=j then you will be in a case where iIndex=jINdex
+    }
+  }
+  // define pointers
+  let i = 0;
+  let j = sortedInts.length - 1;
+  // write loop -- while loop
+  while (j > i) {
+    //start by adding the first and last numbers, then move either up or down depending on above or below target
+    const sum = sortedInts[i] + sortedInts[j];
+    console.log(sortedInts[i], sortedInts[j], sum);
+    if (sum > s) {
+      j--;
+    } else if (sum < s) {
+      i++;
+    } else if (sum === s) {
+      // when you find a pair, store both numbers and their indexes in ints into a new 4-item array -- make a helper function
+      storePair(i, j);
+    }
+  }
+  console.log(results);
   // once you have looped through sorted array and have all possible combos, loop through the results array or arrays
   // figure out which pair whose second element has the smallest index in the ints array
   // return that pair
-
-  // solution seems convoluted
 
   return undefined; // your code here...1
 }
@@ -218,6 +279,7 @@ sumPairs([11, 3, 7, 5], 10);
 // == [3, 7]
 
 sumPairs([4, 3, 2, 3, 4], 6);
+[2, 3, 3, 4, 4];
 // #      ^-----^         4 + 2 = 6, indices: 0, 2 *
 // #         ^-----^      3 + 3 = 6, indices: 1, 3
 // #             ^-----^   2 + 4 = 6, indices: 2, 4
@@ -235,7 +297,7 @@ sumPairs([10, 5, 2, 3, 7, 5], 10);
 // second - 2, 7 = 9 i++
 // third - 3, 7 = 10 ** save ** i++
 // fourth - 5, 7 = 12 j--
-// fifth -- 5,5 = 12 ** save**  i++ ___ i=j___ loop stops
+// fifth -- 5,5 = 10 ** save**  i++ ___ i=j___ loop stops
 // #  5 + 5 = 10, indices: 1, 5
 // #  3 + 7 = 10, indices: 3, 4 *
 // #  * the correct answer is the pair whose second value has the smallest index
