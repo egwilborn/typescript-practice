@@ -222,14 +222,20 @@ function sumPairs(ints, s) {
     function storePair(x, y) {
         var iIndex = ints.indexOf(sortedInts[x]);
         var jIndex = ints.indexOf(sortedInts[y]);
+        if (sortedInts[x] === sortedInts[y]) {
+            var indexes = ints.reduce(function (a, e, i) {
+                if (e === sortedInts[x])
+                    a.push(i);
+                return a;
+            }, []);
+            iIndex = indexes[0];
+            jIndex = indexes[1];
+        }
         if (iIndex > jIndex) {
             results.push([ints[jIndex], ints[iIndex], jIndex, iIndex]);
         }
         else if (jIndex > iIndex) {
             results.push([ints[iIndex], ints[jIndex], iIndex, jIndex]);
-        }
-        else {
-            // problem is i=j then you will be in a case where iIndex=jINdex
         }
     }
     // define pointers
@@ -239,7 +245,6 @@ function sumPairs(ints, s) {
     while (j > i) {
         //start by adding the first and last numbers, then move either up or down depending on above or below target
         var sum = sortedInts[i] + sortedInts[j];
-        console.log(sortedInts[i], sortedInts[j], sum);
         if (sum > s) {
             j--;
         }
@@ -249,10 +254,22 @@ function sumPairs(ints, s) {
         else if (sum === s) {
             // when you find a pair, store both numbers and their indexes in ints into a new 4-item array -- make a helper function
             storePair(i, j);
+            j--;
         }
     }
-    console.log(results);
     // once you have looped through sorted array and have all possible combos, loop through the results array or arrays
+    var winningItem = results[0];
+    results.forEach(function (item) {
+        if (item[3] < winningItem[3]) {
+            winningItem = item;
+        }
+    });
+    if (results.length > 0) {
+        console.log([winningItem[0], winningItem[1]]);
+    }
+    else {
+        console.log(undefined);
+    }
     // figure out which pair whose second element has the smallest index in the ints array
     // return that pair
     return undefined; // your code here...1
@@ -271,13 +288,6 @@ sumPairs([0, 0, -2, 3], 2);
 // #  there are no pairs of values that can be added to produce 2.
 // == None/nil/undefined (Based on the language)
 sumPairs([10, 5, 2, 3, 7, 5], 10);
-//------Testing pseudocode-----//
-// sorted [2,3,5,5,7,10]
-// first - 2, 10 = 12 j--
-// second - 2, 7 = 9 i++
-// third - 3, 7 = 10 ** save ** i++
-// fourth - 5, 7 = 12 j--
-// fifth -- 5,5 = 10 ** save**  i++ ___ i=j___ loop stops
 // #  5 + 5 = 10, indices: 1, 5
 // #  3 + 7 = 10, indices: 3, 4 *
 // #  * the correct answer is the pair whose second value has the smallest index
