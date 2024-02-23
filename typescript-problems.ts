@@ -308,3 +308,34 @@ sumPairs([10, 5, 2, 3, 7, 5], 10);
 // #  * the correct answer is the pair whose second value has the smallest index
 // == [3, 7]
 // Negative numbers and duplicate numbers can and will appear.
+
+// Write a simple parser that will parse and run Deadfish.
+
+// Deadfish has 4 commands, each 1 character long:
+
+// i increments the value (initially 0)
+// d decrements the value
+// s squares the value
+// o outputs the value into the return array
+// Invalid characters should be ignored.
+
+/** return the output array and ignore all non-op characters */
+function parse(data: string): number[] {
+  let num = 0;
+  let output: number[] = [];
+  for (let char of data) {
+    if (char === "i") {
+      num++;
+    } else if (char === "d") {
+      num--;
+    } else if (char === "s") {
+      num = num * num;
+    } else if (char === "o") {
+      output.push(num);
+    }
+  }
+
+  return output;
+}
+
+console.log(parse("iiisdoso")); //=> [8, 64]

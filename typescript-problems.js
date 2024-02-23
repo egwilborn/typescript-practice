@@ -1,7 +1,7 @@
 "use strict";
 // Your team is writing a fancy new text editor and you've been tasked with implementing the line numbering.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Kata = void 0;
+exports.parse = exports.Kata = void 0;
 // Write a function which takes a list of strings and returns each line prepended by the correct
 // number.
 // The numbering starts at 1. The format is n: string. Notice the colon and space in between.
@@ -265,14 +265,11 @@ function sumPairs(ints, s) {
         }
     });
     if (results.length > 0) {
-        console.log([winningItem[0], winningItem[1]]);
+        return [winningItem[0], winningItem[1]];
     }
     else {
-        console.log(undefined);
+        return undefined;
     }
-    // figure out which pair whose second element has the smallest index in the ints array
-    // return that pair
-    return undefined; // your code here...1
 }
 sumPairs([11, 3, 7, 5], 10);
 // #          ^--^      3 + 7 = 10
@@ -293,3 +290,33 @@ sumPairs([10, 5, 2, 3, 7, 5], 10);
 // #  * the correct answer is the pair whose second value has the smallest index
 // == [3, 7]
 // Negative numbers and duplicate numbers can and will appear.
+// Write a simple parser that will parse and run Deadfish.
+// Deadfish has 4 commands, each 1 character long:
+// i increments the value (initially 0)
+// d decrements the value
+// s squares the value
+// o outputs the value into the return array
+// Invalid characters should be ignored.
+/** return the output array and ignore all non-op characters */
+function parse(data) {
+    var num = 0;
+    var output = [];
+    for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+        var char = data_1[_i];
+        if (char === "i") {
+            num++;
+        }
+        else if (char === "d") {
+            num--;
+        }
+        else if (char === "s") {
+            num = num * num;
+        }
+        else if (char === "o") {
+            output.push(num);
+        }
+    }
+    return output;
+}
+exports.parse = parse;
+console.log(parse("iiisdoso")); //=> [8, 64]
