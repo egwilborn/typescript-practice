@@ -1,7 +1,7 @@
 "use strict";
 // Your team is writing a fancy new text editor and you've been tasked with implementing the line numbering.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parse = exports.Kata = void 0;
+exports.findOdd = exports.Kata = void 0;
 // Write a function which takes a list of strings and returns each line prepended by the correct
 // number.
 // The numbering starts at 1. The format is n: string. Notice the colon and space in between.
@@ -318,5 +318,46 @@ function parse(data) {
     }
     return output;
 }
-exports.parse = parse;
-console.log(parse("iiisdoso")); //=> [8, 64]
+// console.log(parse("iiisdoso")); //=> [8, 64]
+// Given an array of integers, find the one that appears an odd number of times.
+// There will always be only one integer that appears an odd number of times.
+// Examples
+// [7] should return 7, because it occurs 1 time (which is odd).
+// [0] should return 0, because it occurs 1 time (which is odd).
+// [1,1,2] should return 2, because it occurs 1 time (which is odd).
+// [0,1,0,1,0] should return 0, because it occurs 3 times (which is odd).
+// [1,2,2,3,3,3,4,3,3,3,2,2,1] should return 4, because it appears 1 time (which is odd).
+var findOdd = function (xs) {
+    var map = {};
+    var result = 0;
+    xs.forEach(function (num) {
+        if (map[num] === undefined) {
+            map[num] = 1;
+        }
+        else {
+            map[num] += 1;
+        }
+    });
+    for (var key in map) {
+        if (map[key] % 2 !== 0) {
+            result = parseInt(key);
+        }
+    }
+    return result;
+};
+exports.findOdd = findOdd;
+// findOdd([7]); //7
+// findOdd([0]); // 0
+// findOdd([1, 1, 2]); // 2
+// findOdd([0, 1, 0, 1, 0]); // 0
+// findOdd([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1]); // 4
+//What Javascript statement in place of "?" will make the result always be between 6 and 7?
+var x = 2;
+var y = 4;
+function update(arg) {
+    return Math.random() + y * arg;
+}
+y = 2;
+y = 3;
+var result = update(x);
+console.log(result);

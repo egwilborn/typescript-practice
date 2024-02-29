@@ -338,4 +338,51 @@ function parse(data: string): number[] {
   return output;
 }
 
-console.log(parse("iiisdoso")); //=> [8, 64]
+// console.log(parse("iiisdoso")); //=> [8, 64]
+
+// Given an array of integers, find the one that appears an odd number of times.
+
+// There will always be only one integer that appears an odd number of times.
+
+// Examples
+// [7] should return 7, because it occurs 1 time (which is odd).
+// [0] should return 0, because it occurs 1 time (which is odd).
+// [1,1,2] should return 2, because it occurs 1 time (which is odd).
+// [0,1,0,1,0] should return 0, because it occurs 3 times (which is odd).
+// [1,2,2,3,3,3,4,3,3,3,2,2,1] should return 4, because it appears 1 time (which is odd).
+
+export const findOdd = (xs: number[]): number => {
+  let map: { [index: string]: any } = {};
+  let result = 0;
+  xs.forEach((num: number) => {
+    if (map[num] === undefined) {
+      map[num] = 1;
+    } else {
+      map[num] += 1;
+    }
+  });
+  for (const key in map) {
+    if (map[key] % 2 !== 0) {
+      result = parseInt(key);
+    }
+  }
+  return result;
+};
+
+// findOdd([7]); //7
+// findOdd([0]); // 0
+// findOdd([1, 1, 2]); // 2
+// findOdd([0, 1, 0, 1, 0]); // 0
+// findOdd([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 2, 2, 1]); // 4
+
+//What Javascript statement in place of "?" will make the result always be between 6 and 7?
+const x = 2;
+let y = 4;
+function update(arg) {
+  return Math.random() + y * arg;
+}
+
+y = 2;
+y = 3;
+const result = update(x);
+console.log(result);
