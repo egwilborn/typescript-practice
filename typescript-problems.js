@@ -1,5 +1,14 @@
 "use strict";
 // Your team is writing a fancy new text editor and you've been tasked with implementing the line numbering.
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findOdd = exports.Kata = void 0;
 // Write a function which takes a list of strings and returns each line prepended by the correct
@@ -360,4 +369,27 @@ function update(arg) {
 y = 2;
 y = 3;
 var result = update(x);
-console.log(result);
+// console.log(result);
+//Assume "#" is like a backspace in string. This means that string "a#bc#d" actually is "bd"
+//Your task is to process a string with "#" symbols.
+function cleanString(s) {
+    // break string into array
+    var sArray = s.split("");
+    var copyArray = __spreadArray([], sArray, true);
+    // use for loop to loop over array
+    for (var i = 0; i < s.length; i++) {
+        if (sArray[i] === "#") {
+            copyArray.splice(i - 1, 1);
+            copyArray.splice(i - 1, 1);
+        }
+    }
+    console.log(copyArray);
+    // if char is # then delete that char and the one before
+    // join the resulting array
+    return "";
+}
+//Examples
+cleanString("abc#d##c"); //  ==>  "ac"
+cleanString("abc##d######"); // ==>  ""
+cleanString("#######"); // ==>  ""
+cleanString(""); //  ==>  ""

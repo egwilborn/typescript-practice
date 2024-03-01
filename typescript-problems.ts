@@ -385,4 +385,31 @@ function update(arg) {
 y = 2;
 y = 3;
 const result = update(x);
-console.log(result);
+// console.log(result);
+
+//Assume "#" is like a backspace in string. This means that string "a#bc#d" actually is "bd"
+
+//Your task is to process a string with "#" symbols.
+function cleanString(s: string): string {
+  // break string into array
+  const sArray = s.split("");
+  const copyArray = [...sArray];
+  // use for loop to loop over array
+  for (let i = 0; i < s.length; i++) {
+    if (sArray[i] === "#") {
+      copyArray.splice(i - 1, 1);
+      copyArray.splice(i - 1, 1);
+    }
+  }
+
+  console.log(copyArray);
+  // if char is # then delete that char and the one before
+  // join the resulting array
+  return "";
+}
+
+//Examples
+cleanString("abc#d##c"); //  ==>  "ac"
+cleanString("abc##d######"); // ==>  ""
+cleanString("#######"); // ==>  ""
+cleanString(""); //  ==>  ""
