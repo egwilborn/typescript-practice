@@ -379,8 +379,7 @@ function cleanString(s) {
     // use for loop to loop over array
     for (var i = 0; i < s.length; i++) {
         if (sArray[i] === "#") {
-            copyArray.splice(i - 1, 1);
-            copyArray.splice(i - 1, 1);
+            copyArray.splice(i, 2);
         }
     }
     console.log(copyArray);

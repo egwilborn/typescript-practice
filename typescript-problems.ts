@@ -397,8 +397,7 @@ function cleanString(s: string): string {
   // use for loop to loop over array
   for (let i = 0; i < s.length; i++) {
     if (sArray[i] === "#") {
-      copyArray.splice(i - 1, 1);
-      copyArray.splice(i - 1, 1);
+      copyArray.splice(i, 2);
     }
   }
 
