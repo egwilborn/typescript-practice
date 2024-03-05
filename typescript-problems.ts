@@ -389,26 +389,57 @@ const result = update(x);
 
 //Assume "#" is like a backspace in string. This means that string "a#bc#d" actually is "bd"
 
-//Your task is to process a string with "#" symbols.
-function cleanString(s: string): string {
-  // break string into array
-  const sArray = s.split("");
-  const copyArray = [...sArray];
-  // use for loop to loop over array
-  for (let i = 0; i < s.length; i++) {
-    if (sArray[i] === "#") {
-      copyArray.splice(i, 2);
-    }
+// //Your task is to process a string with "#" symbols.
+// function cleanString(s: string): string {
+//   // break string into array
+//   const sArray = s.split("");
+//   const copyArray = [...sArray];
+//   // use for loop to loop over array
+//   for (let i = 0; i < s.length; i++) {
+//     if (sArray[i] === "#") {
+//       copyArray.splice(i, 2);
+//     }
+//   }
+
+//   console.log(copyArray);
+//   // if char is # then delete that char and the one before
+//   // join the resulting array
+//   return "";
+// }
+
+// //Examples
+// cleanString("abc#d##c"); //  ==>  "ac"
+// cleanString("abc##d######"); // ==>  ""
+// cleanString("#######"); // ==>  ""
+// cleanString(""); //  ==>  ""
+
+//^^^^^^^^^^^^^^^^^^ did not solve ^^^^^^^^^^^^^^^^^^^^^^//
+
+//Build a pyramid-shaped tower, as an array/list of strings, given a positive integer number of floors. A tower block is represented with "*" character.
+
+//For example, a tower with 3 floors looks like this:
+export const towerBuilder = (nFloors: number): string[] => {
+  //pseudocode
+  // define the array to be returned
+  const tower: string[] = [];
+  //use a for loop from 1-nFloors
+  for (let i = 1; i <= nFloors; i++) {
+    // make a string with the correct number of spaces (for one side)
+    // make a string with the correct number of stars
+    // concat
+    const side1 = `${" ".repeat(nFloors - i)}${"*".repeat(i - 1)}`;
+    const side2 = `${"*".repeat(i - 1)}${" ".repeat(nFloors - i)}`;
+    // push to tower
+    const level = `${side1}*${side2}`;
+    tower.push(level);
+    // in each loop
   }
+  return tower;
+};
 
-  console.log(copyArray);
-  // if char is # then delete that char and the one before
-  // join the resulting array
-  return "";
-}
-
-//Examples
-cleanString("abc#d##c"); //  ==>  "ac"
-cleanString("abc##d######"); // ==>  ""
-cleanString("#######"); // ==>  ""
-cleanString(""); //  ==>  ""
+console.log(towerBuilder(3));
+// [
+//   "  *  ",
+//   " *** ",
+//   "*****"
+// ]

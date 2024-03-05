@@ -1,16 +1,7 @@
 "use strict";
 // Your team is writing a fancy new text editor and you've been tasked with implementing the line numbering.
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findOdd = exports.Kata = void 0;
+exports.towerBuilder = exports.findOdd = exports.Kata = void 0;
 // Write a function which takes a list of strings and returns each line prepended by the correct
 // number.
 // The numbering starts at 1. The format is n: string. Notice the colon and space in between.
@@ -371,24 +362,52 @@ y = 3;
 var result = update(x);
 // console.log(result);
 //Assume "#" is like a backspace in string. This means that string "a#bc#d" actually is "bd"
-//Your task is to process a string with "#" symbols.
-function cleanString(s) {
-    // break string into array
-    var sArray = s.split("");
-    var copyArray = __spreadArray([], sArray, true);
-    // use for loop to loop over array
-    for (var i = 0; i < s.length; i++) {
-        if (sArray[i] === "#") {
-            copyArray.splice(i, 2);
-        }
+// //Your task is to process a string with "#" symbols.
+// function cleanString(s: string): string {
+//   // break string into array
+//   const sArray = s.split("");
+//   const copyArray = [...sArray];
+//   // use for loop to loop over array
+//   for (let i = 0; i < s.length; i++) {
+//     if (sArray[i] === "#") {
+//       copyArray.splice(i, 2);
+//     }
+//   }
+//   console.log(copyArray);
+//   // if char is # then delete that char and the one before
+//   // join the resulting array
+//   return "";
+// }
+// //Examples
+// cleanString("abc#d##c"); //  ==>  "ac"
+// cleanString("abc##d######"); // ==>  ""
+// cleanString("#######"); // ==>  ""
+// cleanString(""); //  ==>  ""
+//^^^^^^^^^^^^^^^^^^ did not solve ^^^^^^^^^^^^^^^^^^^^^^//
+//Build a pyramid-shaped tower, as an array/list of strings, given a positive integer number of floors. A tower block is represented with "*" character.
+//For example, a tower with 3 floors looks like this:
+var towerBuilder = function (nFloors) {
+    //pseudocode
+    // define the array to be returned
+    var tower = [];
+    //use a for loop from 1-nFloors
+    for (var i = 1; i <= nFloors; i++) {
+        // make a string with the correct number of spaces (for one side)
+        // make a string with the correct number of stars
+        // concat
+        var side1 = "".concat(" ".repeat(nFloors - i)).concat("*".repeat(i - 1));
+        var side2 = "".concat("*".repeat(i - 1)).concat(" ".repeat(nFloors - i));
+        // push to tower
+        var level = "".concat(side1, "*").concat(side2);
+        tower.push(level);
+        // in each loop
     }
-    console.log(copyArray);
-    // if char is # then delete that char and the one before
-    // join the resulting array
-    return "";
-}
-//Examples
-cleanString("abc#d##c"); //  ==>  "ac"
-cleanString("abc##d######"); // ==>  ""
-cleanString("#######"); // ==>  ""
-cleanString(""); //  ==>  ""
+    return tower;
+};
+exports.towerBuilder = towerBuilder;
+console.log((0, exports.towerBuilder)(3));
+// [
+//   "  *  ",
+//   " *** ",
+//   "*****"
+// ]
