@@ -1,7 +1,7 @@
 "use strict";
 // Your team is writing a fancy new text editor and you've been tasked with implementing the line numbering.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.towerBuilder = exports.findOdd = exports.Kata = void 0;
+exports.camelCase = exports.findOdd = exports.Kata = void 0;
 // Write a function which takes a list of strings and returns each line prepended by the correct
 // number.
 // The numbering starts at 1. The format is n: string. Notice the colon and space in between.
@@ -385,29 +385,54 @@ var result = update(x);
 // cleanString(""); //  ==>  ""
 //^^^^^^^^^^^^^^^^^^ did not solve ^^^^^^^^^^^^^^^^^^^^^^//
 //Build a pyramid-shaped tower, as an array/list of strings, given a positive integer number of floors. A tower block is represented with "*" character.
-//For example, a tower with 3 floors looks like this:
-var towerBuilder = function (nFloors) {
-    //pseudocode
-    // define the array to be returned
-    var tower = [];
-    //use a for loop from 1-nFloors
-    for (var i = 1; i <= nFloors; i++) {
-        // make a string with the correct number of spaces (for one side)
-        // make a string with the correct number of stars
-        // concat
-        var side1 = "".concat(" ".repeat(nFloors - i)).concat("*".repeat(i - 1));
-        var side2 = "".concat("*".repeat(i - 1)).concat(" ".repeat(nFloors - i));
-        // push to tower
-        var level = "".concat(side1, "*").concat(side2);
-        tower.push(level);
-        // in each loop
-    }
-    return tower;
-};
-exports.towerBuilder = towerBuilder;
-console.log((0, exports.towerBuilder)(3));
+// //For example, a tower with 3 floors looks like this:
+// export const towerBuilder = (nFloors: number): string[] => {
+//   //pseudocode
+//   // define the array to be returned
+//   const tower: string[] = [];
+//   //use a for loop from 1-nFloors
+//   for (let i = 1; i <= nFloors; i++) {
+//     // make a string with the correct number of spaces (for one side)
+//     // make a string with the correct number of stars
+//     // concat
+//     const side1 = `${" ".repeat(nFloors - i)}${"*".repeat(i - 1)}`;
+//     const side2 = `${"*".repeat(i - 1)}${" ".repeat(nFloors - i)}`;
+//     // push to tower
+//     const level = `${side1}*${side2}`;
+//     tower.push(level);
+//     // in each loop
+//   }
+//   return tower;
+// };
+// console.log(towerBuilder(3));
 // [
 //   "  *  ",
 //   " *** ",
 //   "*****"
 // ]
+// Write a method (or function, depending on the language) that converts a string to camelCase,
+//that is, all words must have their first letter capitalized and spaces must be removed.
+function camelCase(str) {
+    if (str.length === 0) {
+        return "";
+    }
+    //split str into array
+    var strArray = str.split(" ");
+    var resultArray = [];
+    // split each word
+    strArray.forEach(function (word) {
+        var wordArray = word.split("");
+        var firstLetter = wordArray.splice(0, 1);
+        var correctCase = "".concat(firstLetter.join("").toUpperCase()).concat(wordArray
+            .join("")
+            .toLowerCase());
+        resultArray.push(correctCase);
+    });
+    // upper case first item in each word
+    console.log(resultArray.join(""));
+    return resultArray.join(""); // your code here
+}
+exports.camelCase = camelCase;
+// Examples (input --> output):
+camelCase("hello case"); //--> "HelloCase"
+camelCase("camel case word"); // --> "CamelCaseWord"

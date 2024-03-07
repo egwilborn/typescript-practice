@@ -417,29 +417,55 @@ const result = update(x);
 
 //Build a pyramid-shaped tower, as an array/list of strings, given a positive integer number of floors. A tower block is represented with "*" character.
 
-//For example, a tower with 3 floors looks like this:
-export const towerBuilder = (nFloors: number): string[] => {
-  //pseudocode
-  // define the array to be returned
-  const tower: string[] = [];
-  //use a for loop from 1-nFloors
-  for (let i = 1; i <= nFloors; i++) {
-    // make a string with the correct number of spaces (for one side)
-    // make a string with the correct number of stars
-    // concat
-    const side1 = `${" ".repeat(nFloors - i)}${"*".repeat(i - 1)}`;
-    const side2 = `${"*".repeat(i - 1)}${" ".repeat(nFloors - i)}`;
-    // push to tower
-    const level = `${side1}*${side2}`;
-    tower.push(level);
-    // in each loop
-  }
-  return tower;
-};
+// //For example, a tower with 3 floors looks like this:
+// export const towerBuilder = (nFloors: number): string[] => {
+//   //pseudocode
+//   // define the array to be returned
+//   const tower: string[] = [];
+//   //use a for loop from 1-nFloors
+//   for (let i = 1; i <= nFloors; i++) {
+//     // make a string with the correct number of spaces (for one side)
+//     // make a string with the correct number of stars
+//     // concat
+//     const side1 = `${" ".repeat(nFloors - i)}${"*".repeat(i - 1)}`;
+//     const side2 = `${"*".repeat(i - 1)}${" ".repeat(nFloors - i)}`;
+//     // push to tower
+//     const level = `${side1}*${side2}`;
+//     tower.push(level);
+//     // in each loop
+//   }
+//   return tower;
+// };
 
-console.log(towerBuilder(3));
+// console.log(towerBuilder(3));
 // [
 //   "  *  ",
 //   " *** ",
 //   "*****"
 // ]
+
+// Write a method (or function, depending on the language) that converts a string to camelCase,
+//that is, all words must have their first letter capitalized and spaces must be removed.
+export function camelCase(str: string): string {
+  if (str.length === 0) {
+    return "";
+  }
+  //split str into array
+  const strArray = str.split(" ");
+  const resultArray: string[] = [];
+  // split each word
+  strArray.forEach((word) => {
+    const wordArray = word.split("");
+    const firstLetter = wordArray.splice(0, 1);
+    const correctCase = `${firstLetter.join("").toUpperCase()}${wordArray
+      .join("")
+      .toLowerCase()}`;
+    resultArray.push(correctCase);
+  });
+  // upper case first item in each word
+  // console.log(resultArray.join(""));
+  return resultArray.join(""); // your code here
+}
+// Examples (input --> output):
+camelCase("hello case"); //--> "HelloCase"
+camelCase("camel case word"); // --> "CamelCaseWord"
